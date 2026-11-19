@@ -1,0 +1,163 @@
+:root {
+  --cyan: #45eaff;
+  --pink: #ff3d81;
+  --ink: #08101f;
+  --panel: rgba(9, 15, 31, .94);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #050816;
+  color: white;
+  font-family: Inter, Arial, sans-serif;
+  touch-action: auto;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+button, select { font: inherit; }
+button { cursor: pointer; }
+.hidden { display: none !important; }
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 720px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #0a1020;
+  touch-action: auto;
+}
+
+#gameCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: linear-gradient(135deg, rgba(3, 8, 20, .72), rgba(3, 8, 20, .25));
+  backdrop-filter: blur(3px);
+}
+
+.panel {
+  width: min(390px, 94%);
+  max-height: calc(100% - 20px);
+  overflow-y: auto;
+  padding: 28px;
+  border: 1px solid rgba(69, 234, 255, .42);
+  border-radius: 24px;
+  background: var(--panel);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, .55), inset 0 1px rgba(255, 255, 255, .05);
+  text-align: center;
+  touch-action: pan-y;
+}
+
+.panel.compact { max-width: 350px; }
+.eyebrow { margin: 0 0 5px; color: var(--cyan); font-size: 11px; letter-spacing: 5px; }
+h1, h2 { margin: 0; font-family: "Black Ops One", Impact, sans-serif; }
+h1 { font-size: clamp(38px, 10vw, 58px); line-height: .96; text-shadow: 0 4px 0 #101a34; }
+h1 span { display: block; color: var(--pink); }
+h2 { margin-bottom: 24px; font-size: 38px; }
+
+.setting-block, .setting-row { margin-top: 22px; }
+.setting-block label, .setting-row label { display: block; margin-bottom: 9px; color: #93a3c1; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
+.setting-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+select, .text-button {
+  min-height: 43px;
+  border: 1px solid #253452;
+  border-radius: 10px;
+  background: #111a30;
+  color: white;
+  outline: none;
+}
+select { width: 100%; padding: 0 12px; }
+.text-button { width: 100%; font-weight: 800; }
+
+.car-choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+.car-choice {
+  height: 72px;
+  border: 1px solid #263653;
+  border-radius: 12px;
+  background: #11182a;
+  display: grid;
+  place-items: center;
+}
+.car-choice.selected { border-color: var(--cyan); background: rgba(69, 234, 255, .09); box-shadow: 0 0 18px rgba(69, 234, 255, .12); }
+.mini-car { width: 34px; height: 52px; position: relative; border-radius: 12px 12px 8px 8px; box-shadow: inset 5px 0 rgba(255,255,255,.15); }
+.mini-car::before { content: ""; position: absolute; left: 7px; right: 7px; top: 13px; height: 13px; border-radius: 4px; background: #172138; }
+.mini-car.red { background: #f23867; } .mini-car.blue { background: #32a7ff; } .mini-car.yellow { background: #ffc928; }
+
+.primary-button {
+  width: 100%;
+  height: 56px;
+  margin-top: 20px;
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ff3d81, #ff774d);
+  color: white;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  box-shadow: 0 9px 24px rgba(255, 61, 129, .25);
+}
+.sound-button { width: auto; min-height: 34px; margin-top: 10px; padding: 0 15px; border: 0; background: transparent; color: #91a0bd; }
+.best { margin: 10px 0 0; color: #7384a5; font-size: 11px; letter-spacing: 2px; }
+.best strong { color: white; }
+.controls-hint { margin: 12px 0 0; color: #7384a5; font-size: 10px; line-height: 1.5; }
+
+#hud { position: absolute; z-index: 10; top: 0; left: 0; right: 0; height: 86px; padding: max(12px, env(safe-area-inset-top)) 12px 0; pointer-events: none; }
+.hud-card { float: left; min-width: 86px; margin-right: 8px; padding: 8px 12px; border-left: 3px solid var(--cyan); background: rgba(6, 12, 27, .72); backdrop-filter: blur(5px); }
+.hud-card span { display: block; color: #93a3c1; font-size: 8px; letter-spacing: 2px; }
+.hud-card strong { font-family: "Black Ops One", Impact, sans-serif; font-size: 20px; }
+.coin-card { border-left-color: #ffc928; }
+.icon-button { pointer-events: auto; float: right; width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; background: rgba(7,13,29,.75); color: white; font-weight: 900; }
+#nitroMeter { position: absolute; left: 12px; bottom: 2px; width: 124px; height: 5px; overflow: hidden; border-radius: 5px; background: rgba(255,255,255,.16); }
+#nitroFill { width: 100%; height: 100%; background: linear-gradient(90deg, var(--cyan), #7f7cff); transition: width .1s; }
+
+.result-row { display: grid; grid-template-columns: 1fr 1fr; margin-bottom: 8px; }
+.result-row div { display: flex; flex-direction: column; }
+.result-row span { color: #93a3c1; font-size: 9px; letter-spacing: 2px; }
+.result-row strong { margin-top: 4px; font-family: "Black Ops One", Impact, sans-serif; font-size: 32px; }
+
+#mobileControls { position: absolute; z-index: 12; left: 0; right: 0; bottom: max(14px, env(safe-area-inset-bottom)); display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; padding: 0 16px; pointer-events: none; touch-action: none; }
+#mobileControls button { pointer-events: auto; height: 58px; border: 1px solid rgba(255,255,255,.18); border-radius: 16px; background: rgba(8,15,32,.78); color: white; font-weight: 900; backdrop-filter: blur(6px); }
+#mobileControls button:active { transform: scale(.94); background: rgba(69,234,255,.25); }
+#mobileControls #nitroButton { border-color: rgba(69,234,255,.5); color: var(--cyan); font-size: 11px; letter-spacing: 1px; }
+
+@media (max-height: 620px) {
+  .panel { padding: 18px 22px; }
+  .setting-block, .setting-row { margin-top: 12px; }
+  .car-choice { height: 58px; }
+  .primary-button { height: 48px; margin-top: 12px; }
+  h1 { font-size: 38px; }
+}
+
+@media (max-width: 380px) {
+  .panel { padding: min(22px, 4vh) 18px; }
+  .eyebrow { letter-spacing: 3px; }
+  .car-choice { height: 62px; }
+  #mobileControls { gap: 8px; padding-right: 12px; padding-left: 12px; }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .panel { width: min(520px, 94%); }
+  .setting-block { margin-top: 10px; }
+  #mobileControls { width: 230px; left: auto; right: 8px; bottom: 8px; gap: 6px; }
+  #mobileControls button { height: 52px; }
+  #hud { padding-top: 8px; }
+}

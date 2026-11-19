@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a1020">
+  <title>Neon Highway</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app">
+    <canvas id="gameCanvas" aria-label="Neon Highway racing game"></canvas>
+
+    <section id="hud" class="hidden" aria-live="polite">
+      <div class="hud-card"><span>SCORE</span><strong id="score">0</strong></div>
+      <div class="hud-card coin-card"><span>COINS</span><strong id="coins">0</strong></div>
+      <button id="pauseButton" class="icon-button" aria-label="Pause game">Ⅱ</button>
+      <div id="nitroMeter"><div id="nitroFill"></div></div>
+    </section>
+
+    <section id="startScreen" class="overlay">
+      <div class="panel">
+        <p class="eyebrow">ENDLESS RACER</p>
+        <h1>NEON <span>HIGHWAY</span></h1>
+
+        <div class="setting-block">
+          <label>Choose your car</label>
+          <div id="carChoices" class="car-choices">
+            <button class="car-choice selected" data-car="0" aria-label="Red car"><i class="mini-car red"></i></button>
+            <button class="car-choice" data-car="1" aria-label="Blue car"><i class="mini-car blue"></i></button>
+            <button class="car-choice" data-car="2" aria-label="Yellow car"><i class="mini-car yellow"></i></button>
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <label for="difficulty">Difficulty</label>
+            <select id="difficulty">
+              <option value="easy">Easy</option>
+              <option value="normal" selected>Normal</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+          <div>
+            <label>Theme</label>
+            <button id="themeButton" class="text-button">Night</button>
+          </div>
+        </div>
+
+        <button id="startButton" class="primary-button">START ENGINE</button>
+        <button id="soundButton" class="text-button sound-button">Sound: On</button>
+        <p class="controls-hint">Swipe left / right to change lanes · Swipe up for nitro</p>
+        <p class="best">BEST SCORE <strong id="bestScore">0</strong></p>
+      </div>
+    </section>
+
+    <section id="pauseScreen" class="overlay hidden">
+      <div class="panel compact">
+        <p class="eyebrow">GAME PAUSED</p>
+        <h2>Take a breath</h2>
+        <button id="resumeButton" class="primary-button">RESUME</button>
+        <button id="pauseRestartButton" class="text-button">Restart</button>
+      </div>
+    </section>
+
+    <section id="gameOverScreen" class="overlay hidden">
+      <div class="panel compact">
+        <p class="eyebrow">CRASH DETECTED</p>
+        <h2>GAME OVER</h2>
+        <div class="result-row">
+          <div><span>SCORE</span><strong id="finalScore">0</strong></div>
+          <div><span>BEST</span><strong id="finalBest">0</strong></div>
+        </div>
+        <button id="restartButton" class="primary-button">RACE AGAIN</button>
+        <button id="homeButton" class="text-button">Main menu</button>
+      </div>
+    </section>
+
+    <nav id="mobileControls" class="hidden" aria-label="Mobile controls">
+      <button id="leftButton" aria-label="Move left">◀</button>
+      <button id="nitroButton" aria-label="Use nitro">NITRO</button>
+      <button id="rightButton" aria-label="Move right">▶</button>
+    </nav>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
